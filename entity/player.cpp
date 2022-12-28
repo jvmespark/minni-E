@@ -3,11 +3,11 @@
 void Player::ProcessKeyboard(PLAYER_MOVEMENT direction, float deltaTime) {
     float velocity = Player_MovementSpeed * deltaTime;
     switch(direction) {
-        case PLAYER_FORWARD: {
+        case PLAYER_UP: {
             Player_Position.z -= velocity;
             Player_Model = glm::translate(Player_Model, glm::vec3(0.f, 0.f, -velocity));
         }
-        case PLAYER_BACKWARD: {
+        case PLAYER_DOWN: {
             Player_Position.z += velocity;
             Player_Model = glm::translate(Player_Model, glm::vec3(0.f, 0.f, velocity));
         }
