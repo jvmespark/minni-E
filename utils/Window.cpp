@@ -31,7 +31,7 @@ bool Window::Handle_Window_Events(SDL_Event& e) {
     bool mFullScreen = false;
     if (e.type == SDL_WINDOWEVENT) {
         switch(e.window.event) {
-
+            
         }
     }
     else if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN ) {

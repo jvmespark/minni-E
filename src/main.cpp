@@ -8,9 +8,6 @@
 #include "../utils/window.h"
 #include "../utils/renderer.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "../lib/stb_image.h"
-
 int main(int argc, char** argv) {
     Window window("Engine", 1920/2, 1080/2);
     window.init();

@@ -14,20 +14,6 @@ void draw_triangle() {
     glFlush();
 }
 
-void draw_ground() {
-    glBegin(GL_QUADS);
-    glColor3f(0,0,0);
-
-    //ground plane at y = 0, spanning 100x100x100
-    glVertex3f(-100, 0, 100);
-    glVertex3f(100, 0,100);
-    glVertex3f(-100, 0,-100);
-    glVertex3f(100, 0,-100);
-
-    glEnd();
-    glFlush();
-}
-
 void render(Window window) {
     //Shader shader("shader_sources/vertexShader.vert", "shader_sources/fragShader.frag");
     //shader.use();
@@ -37,7 +23,6 @@ void render(Window window) {
     glClear(GL_COLOR_BUFFER_BIT);
 
     draw_triangle();
-    draw_ground();
 
     SDL_GL_SwapWindow(window.program());
 }
