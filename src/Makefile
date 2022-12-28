@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS := $(wildcard *.cpp) #gets all cpp files
+OBJS := $(wildcard *.cpp ../entity/*.cpp ../utils/*.cpp) #gets all cpp files
 BINS := $(SRCS:%.cpp=%)
 
 #CC specifies which compiler we're using
@@ -23,3 +23,7 @@ OBJ_NAME = main.exe
 #This is the target that compiles our executable
 all : ${BINS}
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
+
+run : ${BINS}
+	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
+	./${OBJ_NAME}
