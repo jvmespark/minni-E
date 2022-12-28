@@ -1,11 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <GL/glew.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include "../common/common_headers.h"
 
-enum PLAYER_MOVEMENT {
+enum Player_Direction {
     PLAYER_UP,
     PLAYER_DOWN,
     PLAYER_LEFT,
@@ -18,24 +16,29 @@ enum PLAYER_MOVEMENT {
 
 //associated with the current movement in implementation, does not need to read. Action same direction as the character 
 //is already facing
-enum PLAYER_ACTION {
+enum Player_Action {
+    PLAYER_WALK,
     PLAYER_ATTACK, //more nuances versions of attacks later and other moves
-    PLAYER_ROLL,
     PLAYER_DASH,
 };
 
-//rewrite all this for 2d version, currently looks like 3d support
+/* Design the state system 
+enum State {
+    STATE_STANDING,
+    STATE_DASHING,
+    STATE_ATTACKING,
+};
+*/
 
 class Player {
     public:
-        Player() : Player_Model(glm::mat4(1.0f)), Player_Position(glm::vec3(0.f, 0.f, 0.f)), Player_MovementSpeed(0.f) {}
+        Player();
 
-        void ProcessKeyboard(PLAYER_MOVEMENT direction, float deltaTime); //changes the player state
+        void ProcessInput(Player_Direction, Player_Action); //changes the player state
+        void ProcessInput(Player_Action); //this one does not need direction specified, it uses the current one.
+
     private:
-        glm::mat4 Player_Model;
-        glm::vec3 Player_Position;
-        
-        float Player_MovementSpeed;
+
 };
 
 #endif

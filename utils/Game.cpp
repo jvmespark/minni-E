@@ -55,7 +55,7 @@ void Game::render() {
 }
 
 void Game::update() {
-
+    
 }
 
 void Game::handleEvents() {
@@ -63,6 +63,11 @@ void Game::handleEvents() {
  
     while(SDL_PollEvent(&event)) {
         bool mFullScreen = false;
+        //if (event.type == SDL_WINDOWEVENT) {
+        //    switch(event.window.event) {
+        //        
+        //    }
+        //}
         if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN ) {
             if( mFullScreen ) {
                 SDL_SetWindowFullscreen(window, windowFlags | SDL_WINDOW_FULLSCREEN_DESKTOP);
@@ -76,7 +81,14 @@ void Game::handleEvents() {
         if (event.type == SDL_QUIT) {
             quit();
         }
-        //player processKeyboard();
+        //this is bad. fix it by just sending the key into it, and filtering on the other end.
+        //switch keys
+        //case: key == w
+        //  player.processInput(PLAYER_UP, PLAYER_WALK);
+        //case: key == space
+        //  player.processInput(PLAYER_DASH);
+        //case: mouse == left click
+        //  player.processInput(PLAYER_ATTACK);
     }
 }
 
