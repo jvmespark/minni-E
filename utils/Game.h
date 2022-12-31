@@ -3,8 +3,16 @@
 
 #include "../common/common_headers.h"
 #include "../entity/Player.h"
+
 #include <iostream>
 #include <string>
+
+enum GameState {
+    GAME_ACTIVE,
+    GAME_MENU,
+    GAME_DEATH,
+    GAME_WIN
+};
 
 class Game {
     public:
@@ -28,6 +36,8 @@ class Game {
     
         bool running;
         int windowFlags;
+
+        GameState   State;
 };
 
 #endif

@@ -36,9 +36,11 @@ class Player {
 
         void ProcessInput(Player_Direction, Player_Action); //changes the player state
         void ProcessInput(Player_Action); //this one does not need direction specified, it uses the current one.
+        void update();
 
     private:
-
+        //player stats
+        //vector<images> player_img;
 };
 
 #endif

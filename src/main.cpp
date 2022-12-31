@@ -13,10 +13,10 @@ Uint32 frameStart, frameTime;
 
 int main(int argc, char** argv) {
     Game game;
-    game.init("test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920/2, 1080/2, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    game.init("Engine_Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920/2, 1080/2, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     while (game.isRunning()) {
         frameStart = SDL_GetTicks();
-        
+
         game.update();
         game.handleEvents();
         game.render();

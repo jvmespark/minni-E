@@ -14,7 +14,7 @@ LINKER_FLAGS = -lSDL2main -lSDL2 -lSDL2_image -lopengl32 -lglew32
 
 #if its windows we need -lnmingw32
 ifeq ($(OS), Windows_NT)
-	LINKER_FLAGS = -m32 -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -mwindows glut32.lib -lopengl32 -lglew32 -lglut32 -lglu32
+	LINKER_FLAGS = -m32 -lmingw32 -lSDL2main -lSDL2 -lSDL2_image  glut32.lib -lopengl32 -lglew32 -lglut32 -lglu32
 endif	
 
 #OBJ_NAME specifies the name of our exectuable
