@@ -3,6 +3,7 @@
 
 #include "../common/common_headers.h"
 #include "../entity/Player.h"
+#include "../render/Shader.h"
 
 #include <iostream>
 #include <string>
@@ -33,6 +34,7 @@ class Game {
     private:
         SDL_Window* window;
         SDL_Renderer* renderer;
+        Shader shader;
     
         bool running;
         int windowFlags;

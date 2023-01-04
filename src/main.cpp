@@ -2,9 +2,7 @@
 #include <string>
 
 #include "../common/common_headers.h"
-
 #include "../entity/Player.h"
-
 #include "../utils/Game.h"
 
 const int FPS=60;

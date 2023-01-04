@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of the project
-OBJS := $(wildcard *.cpp ../entity/*.cpp ../utils/*.cpp) #gets all cpp files
+OBJS := $(wildcard *.cpp ../entity/*.cpp ../utils/*.cpp ../render/*.cpp) #gets all cpp files
 BINS := $(SRCS:%.cpp=%)
 
 #CC specifies which compiler we're using
