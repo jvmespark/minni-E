@@ -1,7 +1,7 @@
 #include "ResourceManager.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "../render/stb_image.h"
+#include "../render/stb_image.hpp"
 
 // Instantiate static variables
 std::map<std::string, Texture2D>    ResourceManager::Textures;
