@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include "../common/common_headers.h"
-#include "../entity/Player.h"
+#include "../entity/PlayerClass.h"
 #include "../render/Shader.h"
 #include "../render/SpriteRenderer.h"
 
@@ -36,6 +36,7 @@ class Game {
     private:
         SDL_Window* window;
         SpriteRenderer* renderer;
+        PlayerClass* Player;
     
         bool running;
         int windowFlags;

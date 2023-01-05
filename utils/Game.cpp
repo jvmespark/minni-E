@@ -46,6 +46,9 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     // load textures
     ResourceManager::LoadTexture("../assets/player/duck.png", true, "face");
 
+    //PlayerObj = new Player(500.0f, glm::vec2(100.0f, 100.0f), width, height, renderer);
+    Player = new PlayerClass(500.0f, 100.0f, 100.0f, width, height, renderer);
+
     running = true;
     windowFlags = flags;
     windowWidth = width;
@@ -60,7 +63,7 @@ void renderBackground() {
 
 void Game::render() {
     renderBackground();
-    renderer->DrawSprite(ResourceManager::GetTexture("face"), glm::vec2(300.0f, 100.0f), glm::vec2(300.0f, 400.0f), .0f, glm::vec3(1.0f, 1.0f, 0.0f));
+    Player->render();
     SDL_GL_SwapWindow(window);
 }
 

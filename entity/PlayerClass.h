@@ -2,6 +2,9 @@
 #define PLAYER_H
 
 #include "../common/common_headers.h"
+#include "../utils/GameObject.h"
+#include "../utils/ResourceManager.h"
+#include "../render/SpriteRenderer.h"
 
 enum Player_Direction {
     PLAYER_UP,
@@ -30,17 +33,24 @@ enum State {
 };
 */
 
-class Player {
+class PlayerClass {
     public:
-        Player();
+        PlayerClass();
+        PlayerClass(float velocity, float x, float y, int windowWidth, int widowHeight, SpriteRenderer* renderer_);
+
+        void render();
 
         void ProcessInput(Player_Direction, Player_Action); //changes the player state
         void ProcessInput(Player_Action); //this one does not need direction specified, it uses the current one.
-        void update();
+        //void update();
 
     private:
-        //player stats
-        //vector<images> player_img;
+        float PLAYER_SIZE_X;
+        float PLAYER_SIZE_Y;
+        float PLAYER_VELOCITY;
+
+        SpriteRenderer* renderer;
+        GameObject* PlayerObj;
 };
 
 #endif
