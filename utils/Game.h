@@ -5,11 +5,12 @@
 #include "../entity/PlayerClass.h"
 #include "../render/Shader.h"
 #include "../render/SpriteRenderer.h"
-
 #include "ResourceManager.h"
+#include "GameLevel.h"
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 enum GameState {
     GAME_ACTIVE,
@@ -43,6 +44,8 @@ class Game {
         unsigned int windowWidth, windowHeight;
 
         GameState State;
+        std::vector<GameLevel> Levels;
+        unsigned int Level;
 };
 
 #endif

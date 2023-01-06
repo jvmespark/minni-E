@@ -44,8 +44,17 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     // set render-specific controls
     renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
-    Player = new PlayerClass(5.0f, 100.0f, 100.0f, width, height, renderer);
+    Player = new PlayerClass(3.0f, 50.0f, 80.0f, width, height, renderer);
 
+    ResourceManager::LoadTexture("../assets/backgrounds/background1.jpg", false, "background1");
+    ResourceManager::LoadTexture("../assets/player/duck.png", false, "block");
+    ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", false, "block_solid");
+
+    GameLevel one; one.Load("../levels/one.lvl", width, height);
+    this->Levels.push_back(one);
+
+    Level = 0;
+    State = GAME_ACTIVE;
     running = true;
     windowFlags = flags;
     windowWidth = width;
@@ -53,14 +62,16 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     return true;
 }
 
-void renderBackground() {
-    glClearColor(0.f, .5f, 1.f, 0.f);
-    glClear(GL_COLOR_BUFFER_BIT);
-}
-
 void Game::render() {
-    renderBackground();
-    Player->render();
+    if (this->State == GAME_MENU) {}
+    if (this->State == GAME_ACTIVE) {
+        renderer->DrawSprite(ResourceManager::GetTexture("background1"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);
+        this->Levels[this->Level].Draw(*renderer);
+        Player->render();
+    }
+    if (this->State == GAME_WIN) {}
+    if (this->State == GAME_DEATH) {}
+
     SDL_GL_SwapWindow(window);
 }
 
@@ -90,9 +101,12 @@ void Game::handleEvents() {
         }
     }
 
-    //if (this->State == GAME_ACTIVE) {
+    if (this->State == GAME_MENU) {}
+    if (this->State == GAME_ACTIVE) {
         Player->ProcessInput(kb);
-    //}
+    }
+    if (this->State == GAME_WIN) {}
+    if (this->State == GAME_DEATH) {}
 }
 
 void Game::clean() {
