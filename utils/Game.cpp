@@ -43,11 +43,8 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
     // set render-specific controls
     renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
-    // load textures
-    ResourceManager::LoadTexture("../assets/player/duck.png", true, "face");
 
-    //PlayerObj = new Player(500.0f, glm::vec2(100.0f, 100.0f), width, height, renderer);
-    Player = new PlayerClass(500.0f, 100.0f, 100.0f, width, height, renderer);
+    Player = new PlayerClass(5.0f, 100.0f, 100.0f, width, height, renderer);
 
     running = true;
     windowFlags = flags;
@@ -73,6 +70,7 @@ void Game::update() {
 
 void Game::handleEvents() {
     SDL_Event event;
+    const Uint8* kb = SDL_GetKeyboardState(NULL);
  
     while(SDL_PollEvent(&event)) {
         bool mFullScreen = false;
@@ -91,6 +89,10 @@ void Game::handleEvents() {
             quit();
         }
     }
+
+    //if (this->State == GAME_ACTIVE) {
+        Player->ProcessInput(kb);
+    //}
 }
 
 void Game::clean() {

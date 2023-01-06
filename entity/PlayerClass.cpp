@@ -5,25 +5,42 @@ PlayerClass::PlayerClass() {
 }
 
 PlayerClass::PlayerClass(float velocity, float x, float y, int windowWidth, int windowHeight, SpriteRenderer* renderer_) {
-    ResourceManager::LoadTexture("../assets/player/duck.png", true, "Player");
-    glm::vec2 playerPos = glm::vec2(windowWidth / 2.0f - x / 2.0f, windowHeight - y);
-    PlayerObj = new GameObject(playerPos, glm::vec2(x,y), ResourceManager::GetTexture("Player"));
+    ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", true, "Player_Stag1");
+    ResourceManager::LoadTexture("../assets/player/Duck.png", true, "Player_Up");
+    ResourceManager::LoadTexture("../assets/player/awesomeface.png", true, "Player_Down");
+    ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", true, "Player_Right");
+    ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", true, "Player_Left");
     
+    glm::vec2 playerPos = glm::vec2(windowWidth / 2.0f - x / 2.0f, windowHeight - y);
+    PlayerObj = new GameObject(playerPos, glm::vec2(x,y), ResourceManager::GetTexture("Player_Stag1"));
+
     PLAYER_VELOCITY = velocity;
     PLAYER_SIZE_X = x;
     PLAYER_SIZE_Y = y;
     renderer = renderer_;
+    width = windowWidth;
+    height = windowHeight;
 }
 
 void PlayerClass::render() {
     PlayerObj->Draw(*renderer);
 }
 
-void PlayerClass::ProcessInput(Player_Direction, Player_Action) {
-    //switch(PLAYER_ACTION) {
-    //    case: PLAYER WALK {}
-    //}
-}
-void PlayerClass::ProcessInput(Player_Action) {
-
+void PlayerClass::ProcessInput(const Uint8* kb) {
+    if (kb[SDL_SCANCODE_W]) {
+        PlayerObj->changeSprite(ResourceManager::GetTexture("Player_Up"));
+        PlayerObj->Position.y -= PLAYER_VELOCITY;
+    }
+    if (kb[SDL_SCANCODE_S]) {
+        PlayerObj->changeSprite(ResourceManager::GetTexture("Player_Down"));
+        PlayerObj->Position.y += PLAYER_VELOCITY;
+    }
+    if (kb[SDL_SCANCODE_A]) {
+        PlayerObj->changeSprite(ResourceManager::GetTexture("Player_Left"));
+        PlayerObj->Position.x -= PLAYER_VELOCITY;
+    }
+    if (kb[SDL_SCANCODE_D]) {
+        PlayerObj->changeSprite(ResourceManager::GetTexture("Player_Right"));
+        PlayerObj->Position.x += PLAYER_VELOCITY;
+    }
 }
