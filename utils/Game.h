@@ -16,7 +16,8 @@ enum GameState {
     GAME_ACTIVE,
     GAME_MENU,
     GAME_DEATH,
-    GAME_WIN
+    GAME_WIN,
+    GAME_SETTINGS,
 };
 
 class Game {

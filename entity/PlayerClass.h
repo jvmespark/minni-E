@@ -6,21 +6,11 @@
 #include "../utils/ResourceManager.h"
 #include "../render/SpriteRenderer.h"
 
-//associated with the current movement in implementation, does not need to read. Action same direction as the character 
-//is already facing
-enum Player_Action {
-    PLAYER_WALK,
-    PLAYER_ATTACK, //more nuances versions of attacks later and other moves
-    PLAYER_DASH,
-};
-
-/* Design the state system 
-enum State {
+enum Player_State {
     STATE_STANDING,
     STATE_DASHING,
     STATE_ATTACKING,
 };
-*/
 
 class PlayerClass {
     public:
@@ -40,6 +30,8 @@ class PlayerClass {
 
         SpriteRenderer* renderer;
         GameObject* PlayerObj;
+
+        Player_State State; 
 };
 
 #endif

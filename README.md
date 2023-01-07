@@ -1,9 +1,12 @@
 # 2D Game Engine
 ## Roadmap
 
-- Shaders and Textures
-- Player input handling
-- Sprite rendering
+- Collision Detection and Resolution
+- Lights and Particles
+- Post Processing
+- More entities
+- Boss AI 
+
 ## Acknowledgements
 
 - https://learnopengl.com/

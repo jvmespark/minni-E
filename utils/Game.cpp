@@ -34,6 +34,9 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
         std::cerr<<"SDL Init failed"<<std::endl;
         return false;
     }
+    //Enable transparency 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
 
     // load shaders
     ResourceManager::LoadShader("../render/shader_sources/Sprite.vert", "../render/shader_sources/Sprite.frag", nullptr, "sprite");
@@ -44,9 +47,10 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     // set render-specific controls
     renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
-    Player = new PlayerClass(3.0f, 50.0f, 80.0f, width, height, renderer);
+    Player = new PlayerClass(3.0f, 40.0f, 70.0f, width, height, renderer);
 
-    ResourceManager::LoadTexture("../assets/backgrounds/background1.jpg", false, "background1");
+    ResourceManager::LoadTexture("../assets/backgrounds/background.png", false, "background");
+    ResourceManager::LoadTexture("../assets/backgrounds/foreground.png", false, "foreground");
     ResourceManager::LoadTexture("../assets/player/duck.png", false, "block");
     ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", false, "block_solid");
 
@@ -65,9 +69,10 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
 void Game::render() {
     if (this->State == GAME_MENU) {}
     if (this->State == GAME_ACTIVE) {
-        renderer->DrawSprite(ResourceManager::GetTexture("background1"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);
-        this->Levels[this->Level].Draw(*renderer);
+        renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);
+        //this->Levels[this->Level].Draw(*renderer);
         Player->render();
+        //renderer->DrawSprite(ResourceManager::GetTexture("foreground"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);
     }
     if (this->State == GAME_WIN) {}
     if (this->State == GAME_DEATH) {}
@@ -76,7 +81,9 @@ void Game::render() {
 }
 
 void Game::update() {
-    
+    //music
+    //boss movement
+    //etc
 }
 
 void Game::handleEvents() {
