@@ -8,6 +8,8 @@
 - Boss AI 
 - Menu screens
 - UI: Health bars, etc
+- Camera system
+- Bigger game size and resizable windows
 
 ## MVP:
 
