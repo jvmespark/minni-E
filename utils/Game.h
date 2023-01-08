@@ -11,6 +11,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <tuple>
+
+typedef std::tuple<bool, Player_Direction, glm::vec2> Collision;
 
 enum GameState {
     GAME_ACTIVE,
@@ -32,6 +35,9 @@ class Game {
         void clean();
         void quit();
 
+        Collision DetectCollision(GameObject &one, GameObject &two);
+        void ResolveCollision();
+
         bool isRunning() { return running; }
         SDL_Window* getWindow() const { return window; }
 
@@ -39,7 +45,8 @@ class Game {
         SDL_Window* window;
         SpriteRenderer* renderer;
         PlayerClass* Player;
-    
+        //GameMenu* Menu;
+
         bool running;
         int windowFlags;
         unsigned int windowWidth, windowHeight;
