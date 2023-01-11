@@ -1,4 +1,14 @@
 # 2D Game Engine
+
+# Features
+
+- Game Loop
+- Sprite rendering
+- Level editing and rendering
+- Shaders and textures support
+- Player input and controls
+- Window action support
+
 ## Roadmap
 
 - Player Animation functions
