@@ -6,6 +6,8 @@
 #include "../utils/ResourceManager.h"
 #include "../render/SpriteRenderer.h"
 
+#include <vector>
+
 enum Player_State {
     STATE_STANDING,
     STATE_DASHING,
@@ -38,6 +40,8 @@ class PlayerClass {
         void setVelocity(float vel) { PLAYER_VELOCITY = vel; }
         void hitBoundary(Player_Direction dir) { Direction = dir; }
 
+        void run_Animation(Player_Direction dir);
+
     private:
         float PLAYER_SIZE_X;
         float PLAYER_SIZE_Y;
@@ -49,6 +53,8 @@ class PlayerClass {
 
         Player_State State; 
         Player_Direction Direction;
+
+        void load_textures();
 };
 
 #endif

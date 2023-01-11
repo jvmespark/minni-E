@@ -47,7 +47,7 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     // set render-specific controls
     renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
-    Player = new PlayerClass(3.0f, 40.0f, 70.0f, width, height, renderer);
+    Player = new PlayerClass(3.0f, 50.0f, 70.0f, width, height, renderer);
 
     ResourceManager::LoadTexture("../assets/backgrounds/background.png", false, "background");
     ResourceManager::LoadTexture("../assets/backgrounds/background1.jpg", false, "MenuBackground");

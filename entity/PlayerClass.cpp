@@ -5,15 +5,7 @@ PlayerClass::PlayerClass() {
 }
 
 PlayerClass::PlayerClass(float velocity, float x, float y, int windowWidth, int windowHeight, SpriteRenderer* renderer_) {
-    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Stag1");
-    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Up");
-    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Down");
-    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Right");
-    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Left");
-    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Up_Left");
-    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Up_Right");
-    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Down_Left");
-    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Down_Right");
+    load_textures();
     
     glm::vec2 playerPos = glm::vec2(windowWidth / 2.0f - x / 2.0f, windowHeight - y);
     PlayerObj = new GameObject(playerPos, glm::vec2(x,y), ResourceManager::GetTexture("Player_Stag1"));
@@ -77,4 +69,41 @@ void PlayerClass::ProcessInput(const Uint8* kb) {
             PlayerObj->Position.x += PLAYER_VELOCITY;
         }
     }
+}
+
+void PlayerClass::run_Animation(Player_Direction dir) {
+    switch(dir) {
+        case LEFT: {
+            std::vector<Texture2D> run_cycle = {
+                ResourceManager::GetTexture("Player_Left1"),
+                ResourceManager::GetTexture("Player_Left2"),
+            };
+            int i = 0;
+            while (i <= run_cycle.size()) {
+                if (i == run_cycle.size()) i = 0;
+                PlayerObj->changeSprite(run_cycle[i]);
+                //time pause 1 second
+                i++;
+            }
+        }
+    }
+}
+
+void PlayerClass::load_textures() {
+    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Stag1");
+
+    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Up");
+    
+    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Down");
+    
+    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Right");
+    
+    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Left1");
+    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Left2");
+    
+    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Up_Left");
+    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Up_Right");
+    
+    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Down_Left");
+    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Down_Right");
 }

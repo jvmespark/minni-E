@@ -1,15 +1,16 @@
 # 2D Game Engine
 ## Roadmap
 
+- Player Animation functions
+- BossClass
 - Collision Detection and Resolution
-- Lights and Particles
 - Post Processing
-- More entities
-- Boss AI 
 - Menu screens
 - UI: Health bars, etc
 - Camera system
 - Bigger game size and resizable windows
+- Lights and particles
+- Text and interactable NPCS
 
 ## MVP:
 
