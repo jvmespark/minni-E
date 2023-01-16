@@ -12,6 +12,8 @@ enum Player_State {
     STATE_STANDING,
     STATE_DASHING,
     STATE_ATTACKING,
+    STATE_JUMPING,
+    STATE_NONE,
 };
 
 enum Player_Direction {
@@ -25,7 +27,7 @@ enum Player_Direction {
 class PlayerClass {
     public:
         PlayerClass();
-        PlayerClass(float velocity, float x, float y, int windowWidth, int widowHeight, SpriteRenderer* renderer_);
+        PlayerClass(float velocityx, float velocityy, float x, float y, int windowWidth, int widowHeight, SpriteRenderer* renderer_);
 
         void render();
 
@@ -34,19 +36,22 @@ class PlayerClass {
 
         float getSizeX() const { return PLAYER_SIZE_X; }
         float getSizeY() const { return PLAYER_SIZE_Y; }
-        float getVelocity() const { return PLAYER_VELOCITY; }
+        float posX() const { return PlayerObj->Position.x; }
+        float posY() const { return PlayerObj->Position.y; }
         GameObject* getGameObject() const { return PlayerObj; }
 
-        void setVelocity(float vel) { PLAYER_VELOCITY = vel; }
-        void hitBoundary(Player_Direction dir) { Direction = dir; }
+        void setOnGround(bool g) { onGround = g; }
 
         void run_Animation(Player_Direction dir);
 
     private:
         float PLAYER_SIZE_X;
         float PLAYER_SIZE_Y;
-        float PLAYER_VELOCITY;
+        float PLAYER_VELOCITY_X;
+        float PLAYER_VELOCITY_Y;
+        float PLAYER_GRAVITY;
         int width, height;
+        bool onGround;
 
         SpriteRenderer* renderer;
         GameObject* PlayerObj;

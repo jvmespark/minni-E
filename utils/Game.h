@@ -50,6 +50,7 @@ class Game {
         bool running;
         int windowFlags;
         unsigned int windowWidth, windowHeight;
+        unsigned int gameWidth, gameHeight;
 
         GameState State;
         std::vector<GameLevel> Levels;

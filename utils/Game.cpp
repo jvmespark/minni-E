@@ -47,9 +47,9 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     // set render-specific controls
     renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
-    Player = new PlayerClass(3.0f, 50.0f, 70.0f, width, height, renderer);
+    Player = new PlayerClass(2.0f, 5.0, 50.0f, 70.0f, width, height, renderer);
 
-    ResourceManager::LoadTexture("../assets/backgrounds/background.png", false, "background");
+    ResourceManager::LoadTexture("../assets/backgrounds/background2.jpg", false, "background");
     ResourceManager::LoadTexture("../assets/backgrounds/background1.jpg", false, "MenuBackground");
     ResourceManager::LoadTexture("../assets/backgrounds/foreground.png", false, "foreground");
     ResourceManager::LoadTexture("../assets/player/duck.png", false, "block");
@@ -166,38 +166,9 @@ Player_Direction VectorDirection(glm::vec2 target)
 
 //Update later to use Quad Trees
 Collision Game::DetectCollision(GameObject &one, GameObject &two) {
-    // collision x-axis?
-    bool collisionX = one.Position.x + one.Size.x >= two.Position.x &&
-        two.Position.x + two.Size.x >= one.Position.x;
-    // collision y-axis?
-    bool collisionY = one.Position.y + one.Size.y >= two.Position.y &&
-        two.Position.y + two.Size.y >= one.Position.y;
-    // collision only if on both axes
-    // get center point circle first 
-    glm::vec2 one_half_extents(one.Size.x / 2.0f, one.Size.y / 2.0f);
-    glm::vec2 one_center(one.Position.x + one_half_extents.x, one.Position.y + one_half_extents.y);
-    // calculate AABB info (center, half-extents)
-    glm::vec2 two_half_extents(two.Size.x / 2.0f, two.Size.y / 2.0f);
-    glm::vec2 two_center(two.Position.x + two_half_extents.x, two.Position.y + two_half_extents.y);
-    // get difference vector between both centers
-    glm::vec2 difference = one_center - two_center;
-    if (collisionX && collisionY)
-        return std::make_tuple(true, VectorDirection(difference), difference);
-    else
-        return std::make_tuple(false, UP, glm::vec2(0.0f, 0.0f));
+
 }
 
 void Game::ResolveCollision() {
-    //boundaries
-    for (GameObject& boundary : this -> Levels[this->Level].Bricks) {
-        Collision collision = DetectCollision(*Player->getGameObject(), boundary);
-        if (std::get<0>(collision)) {
-            Player_Direction dir = std::get<1>(collision);
-            glm::vec2 diff_vector = std::get<2>(collision);
-            std::cerr<<dir<<std::endl;
-            Player->hitBoundary(dir);
-        }
-    }
-    //boss and enemies
 
 }
