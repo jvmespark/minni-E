@@ -2,13 +2,12 @@
 
 PlayerClass::PlayerClass() {
     PLAYER_SIZE_X = PLAYER_SIZE_Y = PLAYER_VELOCITY_X = PLAYER_VELOCITY_Y = PLAYER_GRAVITY = 0.0f;
-    onGround = false;
 }
 
-PlayerClass::PlayerClass(float velocityx, float velocityy, float x, float y, int windowWidth, int windowHeight, SpriteRenderer* renderer_) {
+PlayerClass::PlayerClass(float velocityx, float velocityy, float x, float y, int windowWidth, int windowHeight, float levelWidth, float levelHeight, SpriteRenderer* renderer_) {
     load_textures();
     
-    glm::vec2 playerPos = glm::vec2(windowWidth / 2.0f - x / 2.0f, windowHeight - y);
+    glm::vec2 playerPos = glm::vec2(windowWidth / 2.0f - x / 2.0f, windowHeight - y - levelHeight);
     PlayerObj = new GameObject(playerPos, glm::vec2(x,y), ResourceManager::GetTexture("Player_Stag"));
 
     PLAYER_VELOCITY_X = velocityx;
@@ -64,9 +63,10 @@ void PlayerClass::ProcessInput(const Uint8* kb) {
 void PlayerClass::run_Animation(Player_Direction dir) {}
 
 void PlayerClass::load_textures() {
-    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Stag");
+    //when drawing assets make sure they stand at the very end of the image, or else they float.
+    ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", true, "Player_Stag");
 
-    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Right");
+    ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", true, "Player_Right");
     
-    ResourceManager::LoadTexture("../assets/player/PlayerTest.png", true, "Player_Left");
+    ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", true, "Player_Left");
 }

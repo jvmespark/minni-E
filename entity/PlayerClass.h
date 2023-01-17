@@ -27,7 +27,7 @@ enum Player_Direction {
 class PlayerClass {
     public:
         PlayerClass();
-        PlayerClass(float velocityx, float velocityy, float x, float y, int windowWidth, int widowHeight, SpriteRenderer* renderer_);
+        PlayerClass(float velocityx, float velocityy, float x, float y, int windowWidth, int widowHeight, float levelH, float levelW, SpriteRenderer* renderer_);
 
         void render();
 
@@ -51,6 +51,7 @@ class PlayerClass {
         float PLAYER_VELOCITY_Y;
         float PLAYER_GRAVITY;
         int width, height;
+        float levelHeight, levelWidth;
         bool onGround;
 
         SpriteRenderer* renderer;

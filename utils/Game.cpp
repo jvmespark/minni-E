@@ -47,16 +47,18 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     // set render-specific controls
     renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
-    Player = new PlayerClass(2.0f, 5.0, 50.0f, 70.0f, width, height, renderer);
-
     ResourceManager::LoadTexture("../assets/backgrounds/background2.jpg", false, "background");
     ResourceManager::LoadTexture("../assets/backgrounds/background1.jpg", false, "MenuBackground");
     ResourceManager::LoadTexture("../assets/backgrounds/foreground.png", false, "foreground");
     ResourceManager::LoadTexture("../assets/player/duck.png", false, "block");
     ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", false, "block_solid");
 
-    GameLevel one; one.Load("../levels/one.lvl", width, height);
+    gameWidth = width*2;
+    gameHeight = height;
+    GameLevel one; one.Load("../levels/one.lvl", gameWidth, gameHeight);
     this->Levels.push_back(one);
+
+    Player = new PlayerClass(2.0f, 5.0, 50.0f, 70.0f, width, height, one.getLevelHeight(), one.getLevelWidth(), renderer);
 
     Level = 0;
     State = GAME_MENU;
