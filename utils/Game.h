@@ -5,15 +5,15 @@
 #include "../entity/PlayerClass.h"
 #include "../render/Shader.h"
 #include "../render/SpriteRenderer.h"
+#include "../render/TextRenderer.h"
 #include "ResourceManager.h"
 #include "GameLevel.h"
+#include "Camera.h"
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <tuple>
-
-typedef std::tuple<bool, Player_Direction, glm::vec2> Collision;
 
 enum GameState {
     GAME_ACTIVE,
@@ -35,9 +35,6 @@ class Game {
         void clean();
         void quit();
 
-        Collision DetectCollision(GameObject &one, GameObject &two);
-        void ResolveCollision();
-
         bool isRunning() { return running; }
         SDL_Window* getWindow() const { return window; }
 
@@ -45,6 +42,8 @@ class Game {
         SDL_Window* window;
         SpriteRenderer* renderer;
         PlayerClass* Player;
+        Camera camera;
+        TextRenderer* Text;
         //GameMenu* Menu;
 
         bool running;

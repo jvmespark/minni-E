@@ -16,13 +16,6 @@ enum Player_State {
     STATE_NONE,
 };
 
-enum Player_Direction {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT,
-    NONE,
-};
 
 class PlayerClass {
     public:
@@ -42,8 +35,6 @@ class PlayerClass {
 
         void setOnGround(bool g) { onGround = g; }
 
-        void run_Animation(Player_Direction dir);
-
     private:
         float PLAYER_SIZE_X;
         float PLAYER_SIZE_Y;
@@ -58,7 +49,6 @@ class PlayerClass {
         GameObject* PlayerObj;
 
         Player_State State; 
-        Player_Direction Direction;
 
         void load_textures();
 };

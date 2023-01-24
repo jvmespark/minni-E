@@ -60,7 +60,6 @@ void PlayerClass::ProcessInput(const Uint8* kb) {
     //}
 }
 
-void PlayerClass::run_Animation(Player_Direction dir) {}
 
 void PlayerClass::load_textures() {
     //when drawing assets make sure they stand at the very end of the image, or else they float.
