@@ -55,7 +55,7 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", false, "block_solid");
 
     Text = new TextRenderer(width, height);
-    Text -> Load("../assets/fonts/ManilaSansBld.otf", 200);
+    Text -> Load("../assets/fonts/ManilaSansBld.otf", 100);
 
     gameWidth = width*2;
     gameHeight = height;
@@ -78,7 +78,8 @@ void Game::render() {
     if (this->State == GAME_MENU) {
         //Menu->render();
         renderer->DrawSprite(ResourceManager::GetTexture("MenuBackground"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);
-        Text->RenderText("DEMO", this->windowWidth/4, this->windowHeight/3, 1.0f);
+        Text->RenderText("Game Title", this->windowWidth/3.5, this->windowHeight/4, 1.0f);
+        Text->RenderText("Play", this->windowWidth/2.4, this->windowHeight/2, 1.0f);
     }
     if (this->State == GAME_ACTIVE) {
         renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);

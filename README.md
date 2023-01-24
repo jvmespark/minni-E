@@ -8,6 +8,7 @@
 - Shaders and textures support
 - Player input and controls
 - Window action support
+- Text rendering
 
 ## Roadmap
 
@@ -20,7 +21,9 @@
 - Camera system
 - Bigger game size and resizable windows
 - Lights and particles
-- Text and interactable NPCS
+- Custom mouse
+- Interactable Menu screen through mouse tracking
+- interactable NPCS through text boxes
 
 ## MVP:
 
