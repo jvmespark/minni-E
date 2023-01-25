@@ -26,6 +26,7 @@
 - Game settings
 - Save game to memory
 - Game and character physics
+- Gui library
 
 ## MVP:
 
