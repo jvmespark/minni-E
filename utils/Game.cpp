@@ -49,13 +49,11 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
     ResourceManager::LoadTexture("../assets/backgrounds/background2.jpg", false, "background");
-    ResourceManager::LoadTexture("../assets/backgrounds/background1.jpg", false, "MenuBackground");
     ResourceManager::LoadTexture("../assets/backgrounds/foreground.png", false, "foreground");
     ResourceManager::LoadTexture("../assets/player/duck.png", false, "block");
     ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", false, "block_solid");
 
-    Text = new TextRenderer(width, height);
-    Text -> Load("../assets/fonts/ManilaSansBld.otf", 100);
+    Menu = new GameMenu(renderer, width, height);
 
     gameWidth = width*2;
     gameHeight = height;
@@ -76,10 +74,7 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
 
 void Game::render() {
     if (this->State == GAME_MENU) {
-        //Menu->render();
-        renderer->DrawSprite(ResourceManager::GetTexture("MenuBackground"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);
-        Text->RenderText("Game Title", this->windowWidth/3.5, this->windowHeight/4, 1.0f);
-        Text->RenderText("Play", this->windowWidth/2.4, this->windowHeight/2, 1.0f);
+        Menu->render();
     }
     if (this->State == GAME_ACTIVE) {
         renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);
@@ -87,8 +82,12 @@ void Game::render() {
         Player->render();
         //renderer->DrawSprite(ResourceManager::GetTexture("foreground"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);
     }
-    if (this->State == GAME_WIN) {}
-    if (this->State == GAME_DEATH) {}
+    if (this->State == GAME_WIN) {
+        // not a menu state, just text overlay
+    }
+    if (this->State == GAME_DEATH) {
+        // not a menu state, fade to black and text.
+    }
 
     SDL_GL_SwapWindow(window);
 }
@@ -98,10 +97,13 @@ void Game::update() {
     //boss movement
     //etc
     if (this->State==GAME_MENU) {
-
+        State = static_cast<GameState>(Menu->updateState());
     }
     if (this->State==GAME_ACTIVE) {
         //this->ResolveCollision();
+    }
+    if (this->State==GAME_EXIT) {
+        quit();
     }
 }
 
@@ -125,14 +127,11 @@ void Game::handleEvents() {
         if (event.type == SDL_QUIT) {
             quit();
         }
+        Menu->ProcessInput(event);
     }
 
     if (this->State == GAME_MENU) {
-        //handle menu inputs
-        if (kb[SDL_SCANCODE_P]) {
-            State = GAME_ACTIVE;
-        }
-        //Menu->ProcessInput(kb);
+        Menu->ProcessInput(kb);
     }
     if (this->State == GAME_ACTIVE) {
         Player->ProcessInput(kb);

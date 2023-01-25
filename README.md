@@ -16,7 +16,6 @@
 - BossClass
 - Collision Detection and Resolution
 - Post Processing
-- Menu screens
 - UI: Health bars, etc
 - Camera system
 - Bigger game size and resizable windows
@@ -24,6 +23,8 @@
 - Custom mouse
 - Interactable Menu screen through mouse tracking
 - interactable NPCS through text boxes
+- Game settings
+- Save game to memory
 
 ## MVP:
 

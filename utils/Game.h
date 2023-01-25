@@ -8,6 +8,7 @@
 #include "../render/TextRenderer.h"
 #include "ResourceManager.h"
 #include "GameLevel.h"
+#include "GameMenu.h"
 #include "Camera.h"
 
 #include <iostream>
@@ -20,7 +21,7 @@ enum GameState {
     GAME_MENU,
     GAME_DEATH,
     GAME_WIN,
-    GAME_SETTINGS,
+    GAME_EXIT,
 };
 
 class Game {
@@ -44,7 +45,7 @@ class Game {
         PlayerClass* Player;
         Camera camera;
         TextRenderer* Text;
-        //GameMenu* Menu;
+        GameMenu* Menu;
 
         bool running;
         int windowFlags;

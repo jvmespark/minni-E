@@ -103,6 +103,10 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale, g
 
         float w = ch.Size.x * scale;
         float h = ch.Size.y * scale;
+        coordinates = {
+            x-w, x + w, y-h, y + h
+        };
+
         // update VBO for each character
         float vertices[6][4] = {
             { xpos,     ypos + h,   0.0f, 1.0f },
