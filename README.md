@@ -25,6 +25,7 @@
 - interactable NPCS through text boxes
 - Game settings
 - Save game to memory
+- Game and character physics
 
 ## MVP:
 
