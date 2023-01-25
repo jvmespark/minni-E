@@ -5,9 +5,11 @@
 #include "../render/TextRenderer.h"
 #include "../render/SpriteRenderer.h"
 #include "ResourceManager.h"
+#include "../UI/Button.h"
 
 #include <map>
 #include <vector>
+#include <string>
 
 enum MenuState {
     MAIN,
@@ -21,10 +23,13 @@ class GameMenu {
         GameMenu() {}
         GameMenu(SpriteRenderer* renderer_, unsigned int width, unsigned int height);
         
+        void init();
+
         void render();
         void ProcessInput(const Uint8* kb);
         void ProcessInput(SDL_Event event);
         int updateState();
+        void changeState(MenuState newState) { State = newState; }
         // settings
         // mouse and keyboard input
     private:
@@ -37,7 +42,7 @@ class GameMenu {
 
         MenuState State;
 
-        std::map<float, std::vector<float>> Main_Layout;
+        std::map<std::string, Button*> buttonMap;
 };
 
 #endif

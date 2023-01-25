@@ -16,7 +16,6 @@
 - BossClass
 - Collision Detection and Resolution
 - Post Processing
-- UI: Health bars, etc
 - Camera system
 - Bigger game size and resizable windows
 - Lights and particles
@@ -26,7 +25,7 @@
 - Game settings
 - Save game to memory
 - Game and character physics
-- Gui library
+- UI library: health bars, inventory, buttons, etc.
 
 ## MVP:
 
