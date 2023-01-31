@@ -10,6 +10,12 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <unordered_map>
+
+enum MenuType {
+    EXTERNAL,
+    INTERNAL,
+};
 
 enum MenuState {
     MAIN,
@@ -41,8 +47,10 @@ class GameMenu {
         SpriteRenderer* renderer;
 
         MenuState State;
+        MenuType Type;
 
-        std::map<std::string, Button*> buttonMap;
+        std::unordered_map<std::string, Button*> buttonMap;
+        std::unordered_map<std::string, Button*>::iterator button_it;
 };
 
 #endif

@@ -16,6 +16,9 @@ class Button {
 
         void render();
         void ProcessInput();
+        void click() { onClick(); }
+        // void click(); activate onClick function
+        // void hover(); change background color
         // processinputs
     private:
         // function passed as parameter

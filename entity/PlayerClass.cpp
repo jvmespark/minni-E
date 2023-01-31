@@ -4,7 +4,7 @@ PlayerClass::PlayerClass() {
     PLAYER_SIZE_X = PLAYER_SIZE_Y = PLAYER_VELOCITY_X = PLAYER_VELOCITY_Y = PLAYER_GRAVITY = 0.0f;
 }
 
-PlayerClass::PlayerClass(float velocityx, float velocityy, float x, float y, int windowWidth, int windowHeight, float levelWidth, float levelHeight, SpriteRenderer* renderer_) {
+PlayerClass::PlayerClass(float velocityx, float velocityy, float x, float y, int windowWidth, int windowHeight, float levelWidth, float levelHeight, SpriteRenderer* renderer_, Camera* camera_) {
     load_textures();
     
     glm::vec2 playerPos = glm::vec2(windowWidth / 2.0f - x / 2.0f, windowHeight - y - levelHeight);
@@ -19,6 +19,7 @@ PlayerClass::PlayerClass(float velocityx, float velocityy, float x, float y, int
     renderer = renderer_;
     width = windowWidth;
     height = windowHeight;
+    camera = camera_;
 }
 
 void PlayerClass::render() {
@@ -35,10 +36,13 @@ void PlayerClass::ProcessInput(const Uint8* kb) {
     }
     if (State == STATE_JUMPING) {
         if (!onGround) {
-            PlayerObj->Position.y += PLAYER_VELOCITY_Y += PLAYER_GRAVITY;
+            PlayerObj->Position.y += PLAYER_VELOCITY_Y;
+            PlayerObj->Position.y += PLAYER_GRAVITY;
+            PLAYER_GRAVITY *= 1.1;
         }
         else {
             State = STATE_NONE;
+            PLAYER_GRAVITY = 0.1;
         }
     }
     //Standard Movement
@@ -46,20 +50,23 @@ void PlayerClass::ProcessInput(const Uint8* kb) {
         if (kb[SDL_SCANCODE_SPACE]) {
             if (onGround) {
                 State = STATE_JUMPING;
+                PlayerObj->Position.y += PLAYER_VELOCITY_Y;
+                PlayerObj->Position.y += PLAYER_GRAVITY += 0.1;
                 onGround = false;
             }
         }
         if (kb[SDL_SCANCODE_A]) {
             PlayerObj->changeSprite(ResourceManager::GetTexture("Player_Left"));
-            PlayerObj->Position.x -= PLAYER_VELOCITY_X;
+            //PlayerObj->Position.x;
+            camera->translate(PLAYER_VELOCITY_X, 0);
         }
         if (kb[SDL_SCANCODE_D]) {
             PlayerObj->changeSprite(ResourceManager::GetTexture("Player_Right"));
-            PlayerObj->Position.x += PLAYER_VELOCITY_X;
+            //PlayerObj->Position.x;
+            camera->translate(-PLAYER_VELOCITY_X, 0);
         }
     //}
 }
-
 
 void PlayerClass::load_textures() {
     //when drawing assets make sure they stand at the very end of the image, or else they float.

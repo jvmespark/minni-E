@@ -8,10 +8,6 @@ Game::~Game() {
 }
 
 bool Game::init(const char* title, int x, int y, int width, int height, int flags) {
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 1 );
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
-
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         window = SDL_CreateWindow(title, x, y, width, height, flags);
         if (window != 0) {
@@ -34,6 +30,11 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
         std::cerr<<"SDL Init failed"<<std::endl;
         return false;
     }
+
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 1 );
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
+
     //Enable transparency 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
@@ -59,11 +60,14 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     gameHeight = height;
     GameLevel one; one.Load("../levels/one.lvl", gameWidth, gameHeight);
     this->Levels.push_back(one);
+    Level = 0;
+
+    // change this later to appear in the update function so levels can be iterated
+    camera = new Camera(&this->Levels[this->Level]);
 
     //I hard coded level height, but its going to need to be dynamic later
-    Player = new PlayerClass(2.0f, 5.0, 50.0f, 70.0f, width, height, one.getLevelHeight(), one.getLevelWidth(), renderer);
+    Player = new PlayerClass(2.0f, 7.0, 50.0f, 70.0f, width, height, one.getLevelHeight(), one.getLevelWidth(), renderer, camera);
 
-    Level = 0;
     State = GAME_MENU;
     running = true;
     windowFlags = flags;
@@ -95,12 +99,13 @@ void Game::render() {
 void Game::update() {
     //music
     //boss movement
+    //update level and camera
     //etc
     if (this->State==GAME_MENU) {
         State = static_cast<GameState>(Menu->updateState());
     }
     if (this->State==GAME_ACTIVE) {
-        //this->ResolveCollision();
+        this->ResolveCollision();
     }
     if (this->State==GAME_EXIT) {
         quit();
@@ -127,7 +132,9 @@ void Game::handleEvents() {
         if (event.type == SDL_QUIT) {
             quit();
         }
-        Menu->ProcessInput(event);
+        if (this->State==GAME_MENU) {
+            Menu->ProcessInput(event);
+        }
     }
 
     if (this->State == GAME_MENU) {
@@ -155,8 +162,11 @@ void Game::quit() {
 Collision Game::DetectCollision(GameObject &one, GameObject &two) {
 
 }
-
-void Game::ResolveCollision() {
-
-}
 */
+void Game::ResolveCollision() {
+    float ground_level = this->windowHeight - Player->getSizeY() - this->Levels[this->Level].getLevelHeight();
+    if (Player->posY() >= ground_level && !Player->isOnGround()) {
+        Player->setPosY(ground_level);
+        Player->setOnGround(true);
+    }
+}

@@ -5,6 +5,7 @@
 #include "../utils/GameObject.h"
 #include "../utils/ResourceManager.h"
 #include "../render/SpriteRenderer.h"
+#include "../utils/Camera.h"
 
 #include <vector>
 
@@ -16,11 +17,13 @@ enum Player_State {
     STATE_NONE,
 };
 
+// Make a new state to lock the camera. If camera is locked, then dont translate camera just the player.
+
 
 class PlayerClass {
     public:
         PlayerClass();
-        PlayerClass(float velocityx, float velocityy, float x, float y, int windowWidth, int widowHeight, float levelH, float levelW, SpriteRenderer* renderer_);
+        PlayerClass(float velocityx, float velocityy, float x, float y, int windowWidth, int widowHeight, float levelH, float levelW, SpriteRenderer* renderer_, Camera* camera_);
 
         void render();
 
@@ -33,7 +36,10 @@ class PlayerClass {
         float posY() const { return PlayerObj->Position.y; }
         GameObject* getGameObject() const { return PlayerObj; }
 
+        void setPosY(float newPosY) { PlayerObj->Position.y = newPosY; }
+
         void setOnGround(bool g) { onGround = g; }
+        bool isOnGround() { return onGround; }
 
     private:
         float PLAYER_SIZE_X;
@@ -44,7 +50,8 @@ class PlayerClass {
         int width, height;
         float levelHeight, levelWidth;
         bool onGround;
-
+        
+        Camera* camera;
         SpriteRenderer* renderer;
         GameObject* PlayerObj;
 

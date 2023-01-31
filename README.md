@@ -9,6 +9,8 @@
 - Player input and controls
 - Window action support
 - Text rendering
+- UI library: buttons
+- Camera System: Moveable camera
 
 ## Roadmap
 
@@ -16,16 +18,17 @@
 - BossClass
 - Collision Detection and Resolution
 - Post Processing
-- Camera system
+- Camera system: lagged center player, screenshot ability, parallex effects, etc
 - Bigger game size and resizable windows
 - Lights and particles
 - Custom mouse
 - Interactable Menu screen through mouse tracking
 - interactable NPCS through text boxes
-- Game settings
 - Save game to memory
 - Game and character physics
-- UI library: health bars, inventory, buttons, etc.
+- UI library: health bars, inventory, internal menu, map, etc.
+- Game menu: settings, escape to internally enter, better button action handling, etc.
+- Sharper jumping mechanics
 
 ## MVP:
 

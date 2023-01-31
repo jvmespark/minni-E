@@ -37,6 +37,13 @@ bool GameLevel::IsCompleted() {
     return true;
 }
 
+void GameLevel::translate(float x, float y) {
+    for (GameObject &tile : this->Bricks) {
+        tile.Position.x += x;
+        tile.Position.y += y;
+    }
+}
+
 void GameLevel::init(std::vector<std::vector<unsigned int>> tileData, unsigned int levelWidth, unsigned int levelHeight) {
     // calculate dimensions
     unsigned int height = tileData.size();

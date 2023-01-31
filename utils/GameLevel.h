@@ -24,6 +24,8 @@ class GameLevel {
         // check if the level is completed (all non-solid tiles are destroyed)
         bool IsCompleted();
 
+        void translate(float x, float y);
+
         float getLevelHeight() const { return unit_height; }
         float getLevelWidth() const { return unit_width; }
     private:

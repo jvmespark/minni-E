@@ -36,6 +36,8 @@ class Game {
         void clean();
         void quit();
 
+        void ResolveCollision();
+
         bool isRunning() { return running; }
         SDL_Window* getWindow() const { return window; }
 
@@ -43,7 +45,7 @@ class Game {
         SDL_Window* window;
         SpriteRenderer* renderer;
         PlayerClass* Player;
-        Camera camera;
+        Camera* camera;
         TextRenderer* Text;
         GameMenu* Menu;
 
