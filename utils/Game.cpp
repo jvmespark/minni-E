@@ -49,24 +49,22 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     // set render-specific controls
     renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
-    ResourceManager::LoadTexture("../assets/backgrounds/background2.jpg", false, "background");
+    ResourceManager::LoadTexture("../assets/backgrounds/background3.jpg", false, "background");
     ResourceManager::LoadTexture("../assets/backgrounds/foreground.png", false, "foreground");
     ResourceManager::LoadTexture("../assets/player/duck.png", false, "block");
     ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", false, "block_solid");
 
     Menu = new GameMenu(renderer, width, height);
 
-    gameWidth = width*2;
-    gameHeight = height;
-    GameLevel one; one.Load("../levels/one.lvl", gameWidth, gameHeight);
+    GameLevel one; one.Load("../levels/one.lvl", width, height);
     this->Levels.push_back(one);
     Level = 0;
 
     // change this later to appear in the update function so levels can be iterated
-    camera = new Camera(&this->Levels[this->Level]);
+    camera = new Camera(width, height, &this->Levels[this->Level]);
 
     //I hard coded level height, but its going to need to be dynamic later
-    Player = new PlayerClass(2.0f, 7.0, 50.0f, 70.0f, width, height, one.getLevelHeight(), one.getLevelWidth(), renderer, camera);
+    Player = new PlayerClass(7.0f, 4.0, 50.0f, 60.0f, width, height, one.getLevelHeight(), one.getLevelWidth(), renderer, camera);
 
     State = GAME_MENU;
     running = true;

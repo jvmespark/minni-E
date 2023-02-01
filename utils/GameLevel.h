@@ -28,10 +28,16 @@ class GameLevel {
 
         float getLevelHeight() const { return unit_height; }
         float getLevelWidth() const { return unit_width; }
+        float getBoundaryX() const { return boundaryWidth; }
+        float getBoundaryY() const { return boundaryHeight; }
     private:
         // initialize level from tile data
         float unit_height;
         float unit_width;
+        unsigned int height;
+        unsigned int width;
+        float boundaryHeight;
+        float boundaryWidth;
         void init(std::vector<std::vector<unsigned int>> tileData, unsigned int levelWidth, unsigned int levelHeight);
 };
 

@@ -1,9 +1,12 @@
 #OBJS specifies which files to compile as part of the project
 OBJS := $(wildcard *.cpp ../entity/*.cpp ../utils/*.cpp ../render/*.cpp ../UI/*.cpp) #gets all cpp files
+HEADERS := $(wildcard *.h ../entity/*.h ../utils/*.h ../render/*.h ../UI/*.h) #gets all header files
 BINS := $(SRCS:%.cpp=%)
 
 #CC specifies which compiler we're using
 CC = g++
+
+COUNT = cloc
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
 # -w suppresses all warnings
@@ -27,3 +30,7 @@ all : ${BINS}
 run : ${BINS}
 	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
 	./${OBJ_NAME}
+
+# only runs on linux using cloc
+stats : ${BINS}
+	${COUNT} ${HEADERS} ${OBJS} 

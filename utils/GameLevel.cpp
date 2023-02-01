@@ -46,10 +46,12 @@ void GameLevel::translate(float x, float y) {
 
 void GameLevel::init(std::vector<std::vector<unsigned int>> tileData, unsigned int levelWidth, unsigned int levelHeight) {
     // calculate dimensions
-    unsigned int height = tileData.size();
-    unsigned int width = tileData[0].size(); // note we can index vector at [0] since this function is only called if height > 0
-    unit_width = levelWidth / static_cast<float>(width);
-    unit_height = levelHeight / height; 
+    height = tileData.size();
+    width = tileData[0].size(); // note we can index vector at [0] since this function is only called if height > 0
+    unit_width = levelWidth / static_cast<float>(32);
+    unit_height = levelHeight / static_cast<float>(18); 
+    boundaryHeight = height * unit_height;
+    boundaryWidth = width * unit_width;
     // initialize level tiles based on tileData		
     for (unsigned int y = 0; y < height; ++y)
     {

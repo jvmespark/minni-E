@@ -10,7 +10,7 @@
 - Window action support
 - Text rendering
 - UI library: buttons
-- Camera System: Moveable camera
+- Camera System: Moveable camera, Locking and unlocking, 
 
 ## Roadmap
 
@@ -18,7 +18,7 @@
 - BossClass
 - Collision Detection and Resolution
 - Post Processing
-- Camera system: lagged center player, screenshot ability, parallex effects, etc
+- Camera system: screenshot ability, parallex effects, etc
 - Bigger game size and resizable windows
 - Lights and particles
 - Custom mouse
@@ -29,6 +29,10 @@
 - UI library: health bars, inventory, internal menu, map, etc.
 - Game menu: settings, escape to internally enter, better button action handling, etc.
 - Sharper jumping mechanics
+- Refactor: seperate engine from game, create a math library
+- Scripting language
+- Level / Game editor
+- Lock camera if going out of bounds
 
 ## MVP:
 
