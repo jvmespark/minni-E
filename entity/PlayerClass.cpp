@@ -26,6 +26,19 @@ void PlayerClass::render() {
     PlayerObj->Draw(*renderer);
 }
 
+int round(float d)
+{
+    int n = static_cast<int>(d);
+    // Smaller multiple
+    int a = (n / 10) * 10;
+     
+    // Larger multiple
+    int b = a + 10;
+ 
+    // Return of closest of two
+    return (n - a > b - n)? b : a;
+}
+
 void PlayerClass::ProcessInput(const Uint8* kb) {
     if (State == STATE_ATTACKING) {
         //Direction Attack
@@ -55,27 +68,31 @@ void PlayerClass::ProcessInput(const Uint8* kb) {
                 onGround = false;
             }
         }
+        /*
+            Come back to camera locking later (or never)
+            player is not spawned centered, likely to do with width offset
+            going left adds to rightX.
+        */
         if (kb[SDL_SCANCODE_A]) {
             PlayerObj->changeSprite(ResourceManager::GetTexture("Player_Left"));
-            // player should be able to pick the camera back up when it gets halfway across it.
-            // interesting bug here i cant fix rn
-            // the camera moves forward leaving a gap between the player, letting the player move again
-            if (camera->canTranslate(PLAYER_VELOCITY_X, 0) && PlayerObj->Position.x <= camera->getPosX()) {
+            //if (camera->canTranslate(PLAYER_VELOCITY_X, 0) && round(PlayerObj->Position.x) == (camera->midLine())) {
+            //    camera->lock();
                 camera->translate(PLAYER_VELOCITY_X, 0);
-            }
-            else {
-                PlayerObj->Position.x -= PLAYER_VELOCITY_X;
-            }
+            //}
+            //else if (!camera->isLocked()) {
+            //    PlayerObj->Position.x -= PLAYER_VELOCITY_X;
+            //}
         }
         if (kb[SDL_SCANCODE_D]) {
-            std::cout<<PlayerObj->Position.x<<" "<<camera->getPosX()<<std::endl;
             PlayerObj->changeSprite(ResourceManager::GetTexture("Player_Right"));
-            if (camera->canTranslate(-PLAYER_VELOCITY_X, 0) && PlayerObj->Position.x >= camera->getPosX()) {
+            //std::cout<<"round "<<round(PlayerObj->Position.x)<<" "<<(camera->midLine())<<std::endl;
+            //if (camera->canTranslate(-PLAYER_VELOCITY_X, 0) && round(PlayerObj->Position.x) == (camera->midLine())) {
+            //    camera->lock();
                 camera->translate(-PLAYER_VELOCITY_X, 0);
-            }
-            else {
-                PlayerObj->Position.x += PLAYER_VELOCITY_X;
-            }
+            //}
+            //else if (!camera->isLocked()) {
+            //    PlayerObj->Position.x += PLAYER_VELOCITY_X;
+            //}
         }
     //}
 }

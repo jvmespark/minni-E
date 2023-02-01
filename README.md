@@ -36,9 +36,7 @@
 
 ## MVP:
 
-- Menu system
-- 1 Boss that I can approach and hit and cause damage
-- Death and Win screens
+- Animated character that can platform on a few blocks and pass through an array of examples of lighting and post processing
 
 ## Acknowledgements
 
