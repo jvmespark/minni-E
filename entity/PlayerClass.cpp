@@ -59,6 +59,7 @@ void PlayerClass::ProcessInput(const Uint8* kb) {
             PlayerObj->changeSprite(ResourceManager::GetTexture("Player_Left"));
             // player should be able to pick the camera back up when it gets halfway across it.
             // interesting bug here i cant fix rn
+            // the camera moves forward leaving a gap between the player, letting the player move again
             if (camera->canTranslate(PLAYER_VELOCITY_X, 0) && PlayerObj->Position.x <= camera->getPosX()) {
                 camera->translate(PLAYER_VELOCITY_X, 0);
             }
@@ -69,9 +70,8 @@ void PlayerClass::ProcessInput(const Uint8* kb) {
         if (kb[SDL_SCANCODE_D]) {
             std::cout<<PlayerObj->Position.x<<" "<<camera->getPosX()<<std::endl;
             PlayerObj->changeSprite(ResourceManager::GetTexture("Player_Right"));
-            if (camera->canTranslate(-PLAYER_VELOCITY_X, 0) && PlayerObj->Position.x +10 >= camera->getPosX()) {
+            if (camera->canTranslate(-PLAYER_VELOCITY_X, 0) && PlayerObj->Position.x >= camera->getPosX()) {
                 camera->translate(-PLAYER_VELOCITY_X, 0);
-                std::cout<<"here"<<std::endl;
             }
             else {
                 PlayerObj->Position.x += PLAYER_VELOCITY_X;
