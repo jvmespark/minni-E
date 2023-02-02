@@ -64,7 +64,7 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     camera = new Camera(width, height, &this->Levels[this->Level]);
 
     //I hard coded level height, but its going to need to be dynamic later
-    Player = new PlayerClass(7.0f, 4.0, 50.0f, 60.0f, width, height, one.getLevelHeight(), one.getLevelWidth(), renderer, camera);
+    Player = new PlayerClass(7.0f, 7.0, 50.0f, 60.0f, width, height, one.getLevelHeight(), one.getLevelWidth(), renderer, camera);
 
     State = GAME_MENU;
     running = true;
@@ -156,15 +156,38 @@ void Game::quit() {
 }
 
 //Update later to use Quad Trees
-/*
-Collision Game::DetectCollision(GameObject &one, GameObject &two) {
+bool Game::DetectCollision(GameObject &one, GameObject &two) // AABB - AABB collision
+{
+    // collision x-axis?
+    bool collisionX = one.Position.x + one.Size.x >= two.Position.x &&
+        two.Position.x + two.Size.x >= one.Position.x;
+    // collision y-axis?
+    bool collisionY = one.Position.y + one.Size.y >= two.Position.y &&
+        two.Position.y + two.Size.y >= one.Position.y;
+    // collision only if on both axes
+    return collisionX && collisionY;
+}  
 
-}
-*/
 void Game::ResolveCollision() {
-    float ground_level = this->windowHeight - Player->getSizeY() - this->Levels[this->Level].getLevelHeight();
-    if (Player->posY() >= ground_level && !Player->isOnGround()) {
-        Player->setPosY(ground_level);
-        Player->setOnGround(true);
+    //float ground_level = this->windowHeight - Player->getSizeY() - this->Levels[this->Level].getLevelHeight();
+    //if (Player->posY() >= ground_level && !Player->isOnGround()) {
+    //    Player->setPosY(ground_level);
+    //    Player->setOnGround(true);
+    //}
+    bool collided = false;
+    for (GameObject &box : this->Levels[this->Level].Bricks)
+    {
+        if (DetectCollision(*Player->getGameObject(), box))
+        {
+            // change later so that this only works if the player is fallign down on it. neg y velocity and position not less than box pos + size.
+                float ground_level = this->windowHeight - Player->getSizeY() - (this->windowHeight - box.Position.y);
+                if (Player->posY() >= ground_level && !Player->isOnGround()) {
+                    Player->setPosY(ground_level);
+                    Player->setOnGround(true);
+                }
+                collided = true;
+        }
     }
+    if (!collided)
+    Player->setOnGround(false);
 }

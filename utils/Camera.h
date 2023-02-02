@@ -22,6 +22,7 @@ class Camera {
         float midLine() { return sizeX / 2; }
         bool isLocked() { return locked; }
         void lock() { locked = true; }
+        void scale(float width, float height);
         // rotate
         // post process
         // flip

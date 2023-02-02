@@ -34,6 +34,8 @@ class PlayerClass {
         float getSizeY() const { return PLAYER_SIZE_Y; }
         float posX() const { return PlayerObj->Position.x; }
         float posY() const { return PlayerObj->Position.y; }
+        float getVelocityX() const { return PLAYER_VELOCITY_X; }
+        float getVelocityY() const { return PLAYER_VELOCITY_Y; }
         GameObject* getGameObject() const { return PlayerObj; }
 
         void setPosY(float newPosY) { PlayerObj->Position.y = newPosY; }
@@ -45,6 +47,7 @@ class PlayerClass {
         float PLAYER_SIZE_X;
         float PLAYER_SIZE_Y;
         float PLAYER_VELOCITY_X;
+        float INIT_VEL_Y;
         float PLAYER_VELOCITY_Y;
         float PLAYER_GRAVITY;
         int width, height;

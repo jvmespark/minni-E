@@ -25,6 +25,7 @@ class GameLevel {
         bool IsCompleted();
 
         void translate(float x, float y);
+        void scale(float width, float height);
 
         float getLevelHeight() const { return unit_height; }
         float getLevelWidth() const { return unit_width; }

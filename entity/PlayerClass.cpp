@@ -64,7 +64,6 @@ void PlayerClass::ProcessInput(const Uint8* kb) {
             if (onGround) {
                 State = STATE_JUMPING;
                 PlayerObj->Position.y += PLAYER_VELOCITY_Y;
-                PlayerObj->Position.y += PLAYER_GRAVITY += 0.1;
                 onGround = false;
             }
         }
@@ -95,6 +94,8 @@ void PlayerClass::ProcessInput(const Uint8* kb) {
             //}
         }
     //}
+        if (!onGround)
+                PlayerObj->Position.y += 4;
 }
 
 void PlayerClass::load_textures() {

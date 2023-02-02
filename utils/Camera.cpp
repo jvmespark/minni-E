@@ -24,3 +24,7 @@ bool Camera::canTranslate(float x, float y) {
     locked = false;
     return false;
 }
+
+void Camera::scale(float width, float height) {
+    
+}

@@ -36,6 +36,7 @@ class Game {
         void clean();
         void quit();
 
+        bool DetectCollision(GameObject &one, GameObject &two);
         void ResolveCollision();
 
         bool isRunning() { return running; }
