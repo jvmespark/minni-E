@@ -21,7 +21,7 @@ PlayerClass::PlayerClass(float velocityx, float velocityy, float x, float y, int
     height = windowHeight;
     camera = camera_;
     collide = false;
-    collide_dir = -1;
+    collide_dir = PLAYER_NONE;
 }
 
 void PlayerClass::render() {
@@ -74,7 +74,7 @@ void PlayerClass::ProcessInput(const Uint8* kb) {
             player is not spawned centered, likely to do with width offset
             going left adds to rightX.
         */
-        if (kb[SDL_SCANCODE_A] && !(collide && collide_dir == 1)) {
+        if (kb[SDL_SCANCODE_A] && !(collide && collide_dir == PLAYER_LEFT)) {
             PlayerObj->changeSprite(ResourceManager::GetTexture("Player_Left"));
             //if (camera->canTranslate(PLAYER_VELOCITY_X, 0) && round(PlayerObj->Position.x) == (camera->midLine())) {
             //    camera->lock();
@@ -84,7 +84,7 @@ void PlayerClass::ProcessInput(const Uint8* kb) {
             //    PlayerObj->Position.x -= PLAYER_VELOCITY_X;
             //}
         }
-        if (kb[SDL_SCANCODE_D] && !(collide && collide_dir == 2)) {
+        if (kb[SDL_SCANCODE_D] && !(collide && collide_dir == PLAYER_RIGHT)) {
             PlayerObj->changeSprite(ResourceManager::GetTexture("Player_Right"));
             //std::cout<<"round "<<round(PlayerObj->Position.x)<<" "<<(camera->midLine())<<std::endl;
             //if (camera->canTranslate(-PLAYER_VELOCITY_X, 0) && round(PlayerObj->Position.x) == (camera->midLine())) {

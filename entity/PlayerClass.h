@@ -18,6 +18,12 @@ enum Player_State {
     STATE_NONE,
 };
 
+enum Player_Direction {
+    PLAYER_LEFT,
+    PLAYER_RIGHT,
+    PLAYER_NONE,
+};
+
 // Make a new state to lock the camera. If camera is locked, then dont translate camera just the player.
 
 
@@ -42,7 +48,7 @@ class PlayerClass {
 
         void setPosY(float newPosY) { PlayerObj->Position.y = newPosY; }
         void setPosX(float newPosX) { PlayerObj->Position.x = newPosX; }
-        void setCollide(bool collide_, int collide_dir_) { collide = collide_; collide_dir = collide_dir_; }
+        void setCollide(bool collide_, Player_Direction collide_dir_) { collide = collide_; collide_dir = collide_dir_; }
 
         void setOnGround(bool g) { onGround = g; }
         bool isOnGround() { return onGround; }
@@ -58,7 +64,7 @@ class PlayerClass {
         float levelHeight, levelWidth;
         bool onGround;
         bool collide;
-        int collide_dir;
+        Player_Direction collide_dir;
         
         Camera* camera;
         SpriteRenderer* renderer;
