@@ -24,6 +24,15 @@ enum GameState {
     GAME_EXIT,
 };
 
+enum Direction {
+	UP,
+	RIGHT,
+	DOWN,
+	LEFT
+};    
+
+typedef std::tuple<bool, Direction, glm::vec2> Collision;    
+
 class Game {
     public:
         Game();
@@ -36,7 +45,7 @@ class Game {
         void clean();
         void quit();
 
-        bool DetectCollision(GameObject &one, GameObject &two);
+        Collision DetectCollision(GameObject &one, GameObject &two);
         void ResolveCollision();
 
         bool isRunning() { return running; }

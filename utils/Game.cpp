@@ -155,18 +155,51 @@ void Game::quit() {
     running = false;
 }
 
-//Update later to use Quad Trees
-bool Game::DetectCollision(GameObject &one, GameObject &two) // AABB - AABB collision
+
+Direction VectorDirection(glm::vec2 target)
 {
-    // collision x-axis?
+    glm::vec2 compass[] = {
+        glm::vec2(0.0f, 1.0f),	// up
+        glm::vec2(1.0f, 0.0f),	// right
+        glm::vec2(0.0f, -1.0f),	// down
+        glm::vec2(-1.0f, 0.0f)	// left
+    };
+    float max = 0.0f;
+    unsigned int best_match = -1;
+    for (unsigned int i = 0; i < 4; i++)
+    {
+        float dot_product = glm::dot(glm::normalize(target), compass[i]);
+        if (dot_product > max)
+        {
+            max = dot_product;
+            best_match = i;
+        }
+    }
+    return (Direction)best_match;
+}    
+
+Collision Game::DetectCollision(GameObject &one, GameObject &two) // AABB - AABB collision
+{
+   // collision x-axis?
     bool collisionX = one.Position.x + one.Size.x >= two.Position.x &&
         two.Position.x + two.Size.x >= one.Position.x;
     // collision y-axis?
     bool collisionY = one.Position.y + one.Size.y >= two.Position.y &&
         two.Position.y + two.Size.y >= one.Position.y;
     // collision only if on both axes
-    return collisionX && collisionY;
-}  
+    // get center point circle first 
+    glm::vec2 one_half_extents(one.Size.x / 2.0f, one.Size.y / 2.0f);
+    glm::vec2 one_center(one.Position.x + one_half_extents.x, one.Position.y + one_half_extents.y);
+    // calculate AABB info (center, half-extents)
+    glm::vec2 two_half_extents(two.Size.x / 2.0f, two.Size.y / 2.0f);
+    glm::vec2 two_center(two.Position.x + two_half_extents.x, two.Position.y + two_half_extents.y);
+    // get difference vector between both centers
+    glm::vec2 difference = one_center - two_center;
+    if (collisionX && collisionY)
+        return std::make_tuple(true, VectorDirection(difference), difference);
+    else
+        return std::make_tuple(false, UP, glm::vec2(0.0f, 0.0f));
+}
 
 void Game::ResolveCollision() {
     //float ground_level = this->windowHeight - Player->getSizeY() - this->Levels[this->Level].getLevelHeight();
@@ -177,17 +210,27 @@ void Game::ResolveCollision() {
     bool collided = false;
     for (GameObject &box : this->Levels[this->Level].Bricks)
     {
-        if (DetectCollision(*Player->getGameObject(), box))
+        Collision collision = DetectCollision(*Player->getGameObject(), box);
+        if (std::get<0>(collision))
         {
+            Direction dir = std::get<1>(collision);
             // change later so that this only works if the player is fallign down on it. neg y velocity and position not less than box pos + size.
+            if (dir == DOWN) { 
                 float ground_level = this->windowHeight - Player->getSizeY() - (this->windowHeight - box.Position.y);
                 if (Player->posY() >= ground_level && !Player->isOnGround()) {
                     Player->setPosY(ground_level);
                     Player->setOnGround(true);
                 }
                 collided = true;
+            }
+            else {
+                // basic collisions. should stop the player from moving in the direction they were going originally.
+                if (dir == UP) {}
+                if (dir == LEFT) {}
+                if (dir == RIGHT) {}
+            }
         }
     }
     if (!collided)
-    Player->setOnGround(false);
+        Player->setOnGround(false);
 }
