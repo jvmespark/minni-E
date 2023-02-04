@@ -51,8 +51,8 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
 
     ResourceManager::LoadTexture("../assets/backgrounds/background3.jpg", false, "background");
     ResourceManager::LoadTexture("../assets/backgrounds/foreground.png", false, "foreground");
-    ResourceManager::LoadTexture("../assets/player/duck.png", false, "block");
-    ResourceManager::LoadTexture("../assets/player/Player_Stag1.png", false, "block_solid");
+    ResourceManager::LoadTexture("../assets/blocks/block.png", false, "block");
+    ResourceManager::LoadTexture("../assets/blocks/block.png", false, "block_solid");
 
     Menu = new GameMenu(renderer, width, height);
 
@@ -207,7 +207,9 @@ void Game::ResolveCollision() {
     //    Player->setPosY(ground_level);
     //    Player->setOnGround(true);
     //}
-    bool collided = false;
+    bool side_collided = false;
+    bool vert_collided = false;
+    int collide_dir = -1;
     for (GameObject &box : this->Levels[this->Level].Bricks)
     {
         Collision collision = DetectCollision(*Player->getGameObject(), box);
@@ -221,16 +223,33 @@ void Game::ResolveCollision() {
                     Player->setPosY(ground_level);
                     Player->setOnGround(true);
                 }
-                collided = true;
+                vert_collided = true;
             }
             else {
                 // basic collisions. should stop the player from moving in the direction they were going originally.
-                if (dir == UP) {}
-                if (dir == LEFT) {}
-                if (dir == RIGHT) {}
+                if (dir == UP) {
+                    // stop jumping. change the state of the player
+                    Player->changeState(STATE_NONE);
+                }
+                if (dir == LEFT) {
+                    // set PosX to left of the box
+                    //Player->setCollide(true);
+                    side_collided = true;
+                    collide_dir = 2;
+                    //float leftPos = this->windowWidth - Player->getSizeX() - (this->windowWidth - box.Position.x);
+                    //Player->setPosX(leftPos);
+                }
+                if (dir == RIGHT) {
+                    side_collided = true;
+                    collide_dir = 1;
+                    //Player->setCollide(true);
+                    // set PosX to right of the box
+                    //float rightPos = this->windowWidth - Player->getSizeX() - (this->windowWidth - box.position.x);
+                }
             }
         }
     }
-    if (!collided)
+    Player->setCollide(side_collided, collide_dir);
+    if (!vert_collided)
         Player->setOnGround(false);
 }

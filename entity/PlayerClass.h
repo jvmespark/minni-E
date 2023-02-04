@@ -14,6 +14,7 @@ enum Player_State {
     STATE_DASHING,
     STATE_ATTACKING,
     STATE_JUMPING,
+    STATE_MOVING,
     STATE_NONE,
 };
 
@@ -37,8 +38,11 @@ class PlayerClass {
         float getVelocityX() const { return PLAYER_VELOCITY_X; }
         float getVelocityY() const { return PLAYER_VELOCITY_Y; }
         GameObject* getGameObject() const { return PlayerObj; }
+        void changeState(Player_State newState) { State = newState; }
 
         void setPosY(float newPosY) { PlayerObj->Position.y = newPosY; }
+        void setPosX(float newPosX) { PlayerObj->Position.x = newPosX; }
+        void setCollide(bool collide_, int collide_dir_) { collide = collide_; collide_dir = collide_dir_; }
 
         void setOnGround(bool g) { onGround = g; }
         bool isOnGround() { return onGround; }
@@ -53,6 +57,8 @@ class PlayerClass {
         int width, height;
         float levelHeight, levelWidth;
         bool onGround;
+        bool collide;
+        int collide_dir;
         
         Camera* camera;
         SpriteRenderer* renderer;
