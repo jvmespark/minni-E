@@ -143,6 +143,9 @@ void Game::handleEvents() {
     }
     if (this->State == GAME_WIN) {}
     if (this->State == GAME_DEATH) {}
+    if (kb[SDL_SCANCODE_S]) {
+        camera->screenshot();
+    }
 }
 
 void Game::clean() {
@@ -178,7 +181,12 @@ Direction VectorDirection(glm::vec2 target)
     return (Direction)best_match;
 }    
 
-Collision Game::DetectCollision(GameObject &one, GameObject &two) // AABB - AABB collision
+/*
+    Currently AABB - AABB collision
+    Upgrade later to Quad Tree Pre-Partitioning
+*/
+
+Collision Game::DetectCollision(GameObject &one, GameObject &two)
 {
    // collision x-axis?
     bool collisionX = one.Position.x + one.Size.x >= two.Position.x &&

@@ -10,6 +10,8 @@ class Camera {
         Camera(float x, float y, GameLevel* level_) {
             sizeX = x;
             sizeY = y;
+            windowWidth = x;
+            windowHeight = y;
             posX = x / 2;
             posY = y / 2;
             locked = true;
@@ -23,6 +25,8 @@ class Camera {
         bool isLocked() { return locked; }
         void lock() { locked = true; }
         void scale(float width, float height);
+
+        void screenshot();
         // rotate
         // post process
         // flip
@@ -32,6 +36,7 @@ class Camera {
         bool notBoundary;
         float posX, posY;
         bool locked;
+        float windowWidth, windowHeight;
 
         //all renderers
         GameLevel* level;

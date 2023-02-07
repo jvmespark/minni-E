@@ -10,15 +10,15 @@
 - Window action support
 - Text rendering
 - UI library: buttons
-- Camera System: Moveable camera, Locking and unlocking, 
+- Camera System: Moveable camera, Locking and unlocking, screenshots
+- Collision Detection and Resolution
 
 ## Roadmap
 
 - Player Animation functions
 - BossClass
-- Collision Detection and Resolution
 - Post Processing
-- Camera system: screenshot ability, parallex effects, etc
+- Camera system: parallex effects, etc
 - Bigger game size and resizable windows
 - Lights and particles
 - Custom mouse
