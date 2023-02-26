@@ -33,6 +33,7 @@
 - Scripting language
 - Level / Game editor
 - Lock camera if going out of bounds
+- Audio support
 
 ## MVP:
 
