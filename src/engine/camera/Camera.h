@@ -2,18 +2,21 @@
 #define CAMERA_H
 
 #include "../core/GameLevel.h"
+#include "../entity/EnemyClass.h"
 #include "../core/GameObject.h"
+#include <vector>
 
 class Camera {
     public:
         Camera() {}
-        Camera(float x, float y, GameLevel* level_) {
+        Camera(float x, float y, GameLevel* level_, std::vector<EnemyClass*> enemies_) {
             width = x;
             height = y;
             posX = x / 2;
             posY = y / 2;
             locked = true;
             level = level_;
+            enemies = enemies_;
         }
         void translate(float x, float y); //translate all renderers
         bool canTranslate(float x, float y); // the boundaries are not visible
@@ -37,6 +40,7 @@ class Camera {
 
         //all renderers
         GameLevel* level;
+        std::vector<EnemyClass*> enemies;
 };
 
 #endif

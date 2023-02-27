@@ -2,6 +2,9 @@
 
 void Camera::translate(float x, float y) {
     level->translate(x, y);
+    for (int i = 0; i < enemies.size(); i++) {
+        enemies[i]->translate(x,y);
+    }
     posX -= x;
     posY -= y;
 }

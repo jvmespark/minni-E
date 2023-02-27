@@ -3,6 +3,7 @@
 
 #include "../../common/common_headers.h"
 #include "../entity/PlayerClass.h"
+#include "../entity/EnemyClass.h"
 #include "../render/Shader.h"
 #include "../render/SpriteRenderer.h"
 #include "../render/TextRenderer.h"
@@ -58,6 +59,7 @@ class Game {
         Camera* camera;
         TextRenderer* Text;
         GameMenu* Menu;
+        std::vector<EnemyClass*> enemies;
 
         bool running;
         int windowFlags;

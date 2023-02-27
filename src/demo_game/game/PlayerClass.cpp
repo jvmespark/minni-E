@@ -7,7 +7,7 @@ PlayerClass::PlayerClass() {
 PlayerClass::PlayerClass(float velocityx, float velocityy, float x, float y, int windowWidth, int windowHeight, float levelWidth, float levelHeight, SpriteRenderer* renderer_, Camera* camera_) {
     load_textures();
     
-    glm::vec2 playerPos = glm::vec2(windowWidth / 2.0f - x / 2.0f, windowHeight - y - levelHeight);
+    glm::vec2 playerPos = glm::vec2(windowWidth / 2.0f, windowHeight / 2.0f);
     PlayerObj = new GameObject(playerPos, glm::vec2(x,y), ResourceManager::GetTexture("Player_Stag"));
 
     PLAYER_VELOCITY_X = velocityx;

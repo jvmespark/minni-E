@@ -58,8 +58,15 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     this->Levels.push_back(one);
     Level = 0;
 
+    // have a level meta data class so these can be abstracted
+    EnemyClass* enemy1 = new EnemyClass(3, width/3.0f, height/3.0f, "placeholder", 25.0f, 30.0f, renderer);
+    EnemyClass* enemy2 = new EnemyClass(3, width/1.5f, height/1.5f, "placeholder", 25.0f, 35.0f, renderer);
+    EnemyClass* enemy3 = new EnemyClass(3, width/1.5f, height/3.0f, "placeholder", 25.0f, 35.0f, renderer);
+    enemies = { enemy1, enemy2, enemy3 };
+
     // change this later to appear in the update function so levels can be iterated
-    camera = new Camera(width, height, &this->Levels[this->Level]);
+    // have a templated vector for everything to be shifted
+    camera = new Camera(width, height, &this->Levels[this->Level], enemies);
 
     //I hard coded level height, but its going to need to be dynamic later
     Player = new PlayerClass(7.0f, 7.0, 25.0f, 30.0f, width, height, one.getLevelHeight(), one.getLevelWidth(), renderer, camera);
@@ -80,6 +87,9 @@ void Game::render() {
         renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);
         this->Levels[this->Level].Draw(*renderer);
         Player->render();
+        for (int i = 0; i < this->enemies.size(); i++) {
+            this->enemies[i]->render();
+        }
         //renderer->DrawSprite(ResourceManager::GetTexture("foreground"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);
     }
     if (this->State == GAME_WIN) {
@@ -101,7 +111,10 @@ void Game::update() {
         State = static_cast<GameState>(Menu->updateState());
     }
     if (this->State==GAME_ACTIVE) {
-        this->ResolveCollision();
+        //this->ResolveCollision();
+        for (int i = 0; i < enemies.size(); i++) {
+            this->enemies[i]->moveTo(Player->posX(), Player->posY());
+        }
     }
     if (this->State==GAME_EXIT) {
         quit();

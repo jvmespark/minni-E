@@ -18,7 +18,6 @@
 - Player Animation functions
 - BossClass
 - Post Processing
-- Camera system: parallex effects, etc
 - Bigger game size and resizable windows
 - Lights and particles
 - Custom mouse
