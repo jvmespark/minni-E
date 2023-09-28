@@ -3,6 +3,7 @@
 ## Revamp Roadmap
 - clean up the codebase
 - rewrite readme and documentation
+- build a better demo game  
 
 ## Anticipated Features
 

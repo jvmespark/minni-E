@@ -1,5 +1,5 @@
 # Minni-E
-A 2D game engine built with C++, SDL2, and OpenGL, for development of lightweight single-player rogue-like videogames  
+A 2D game engine built with C++, SDL2, and OpenGL, for development of lightweight single-player platform videogames  
 
 # Features
 - Rendering development library with support for sprites, fonts, shaders, textures, and post-processing effects
