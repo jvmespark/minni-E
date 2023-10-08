@@ -48,10 +48,10 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
     // set render-specific controls
     renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 
-    ResourceManager::LoadTexture("../../demo_game/assets/backgrounds/background3.jpg", false, "background");
+    ResourceManager::LoadTexture("../../demo_game/assets/backgrounds/back.jpg", false, "background");
     ResourceManager::LoadTexture("../../demo_game/assets/backgrounds/foreground.png", false, "foreground");
-    ResourceManager::LoadTexture("../../demo_game/assets/blocks/block.png", false, "block");
-    ResourceManager::LoadTexture("../../demo_game/assets/blocks/block.png", false, "block_solid");
+    ResourceManager::LoadTexture("../../demo_game/assets/blocks/grass.png", false, "stone");
+    ResourceManager::LoadTexture("../../demo_game/assets/blocks/grass.png", false, "grass");
 
     Menu = new GameMenu(renderer, width, height);
     GameLevel one; one.Load("../../demo_game/levels/one.lvl", width, height);
@@ -66,10 +66,10 @@ bool Game::init(const char* title, int x, int y, int width, int height, int flag
 
     // change this later to appear in the update function so levels can be iterated
     // have a templated vector for everything to be shifted
-    camera = new Camera(width, height, &this->Levels[this->Level], enemies);
+    camera = new Camera(width, height, &this->Levels[this->Level]);
 
     //I hard coded level height, but its going to need to be dynamic later
-    Player = new PlayerClass(7.0f, 7.0, 25.0f, 30.0f, width, height, one.getLevelHeight(), one.getLevelWidth(), renderer, camera);
+    Player = new PlayerClass(7.0f, 7.0, 50.0f, 60.0f, width, height, one.getLevelHeight(), one.getLevelWidth(), renderer, camera);
 
     State = GAME_MENU;
     running = true;
@@ -87,9 +87,9 @@ void Game::render() {
         renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);
         this->Levels[this->Level].Draw(*renderer);
         Player->render();
-        for (int i = 0; i < this->enemies.size(); i++) {
-            this->enemies[i]->render();
-        }
+        //for (int i = 0; i < this->enemies.size(); i++) {
+        //    this->enemies[i]->render();
+        //}
         //renderer->DrawSprite(ResourceManager::GetTexture("foreground"), glm::vec2(0.0f, 0.0f), glm::vec2(this->windowWidth, this->windowHeight), 0.0f);
     }
     if (this->State == GAME_WIN) {
@@ -111,10 +111,10 @@ void Game::update() {
         State = static_cast<GameState>(Menu->updateState());
     }
     if (this->State==GAME_ACTIVE) {
-        //this->ResolveCollision();
-        for (int i = 0; i < enemies.size(); i++) {
-            this->enemies[i]->moveTo(Player->posX(), Player->posY());
-        }
+        this->ResolveCollision();
+        //for (int i = 0; i < enemies.size(); i++) {
+        //    this->enemies[i]->moveTo(Player->posX(), Player->posY());
+        //}
     }
     if (this->State==GAME_EXIT) {
         quit();

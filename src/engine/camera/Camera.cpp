@@ -2,9 +2,6 @@
 
 void Camera::translate(float x, float y) {
     level->translate(x, y);
-    for (int i = 0; i < enemies.size(); i++) {
-        enemies[i]->translate(x,y);
-    }
     posX -= x;
     posY -= y;
 }
@@ -14,10 +11,11 @@ bool Camera::canTranslate(float x, float y) {
     float boundaryX = level->getBoundaryX();
     float boundaryY = level->getBoundaryY();
 
-    float rightX = posX + width/2 + x;
-    float leftX = posX - width/2 - x;
-    float rightY = posY + height/2 + y;
-    float leftY = posY - height/2 - y;
+    float rightX = posX + sizeX/2 + x;
+    float leftX = posX - sizeX/2 - x;
+    float rightY = posY + sizeY/2 + y;
+    float leftY = posY - sizeY/2 - y;
+    std::cout<<"right boundary "<<rightX<<" "<<boundaryX<<std::endl;
 
     if (0 <= leftX && rightX <= boundaryX && 0 <= leftY && leftY <= boundaryY) {
         return true;
@@ -27,7 +25,9 @@ bool Camera::canTranslate(float x, float y) {
     return false;
 }
 
-void Camera::scale(float width, float height) {}
+void Camera::scale(float width, float height) {
+    
+}
 
 #define SDL_LOCKIFMUST(s) (SDL_MUSTLOCK(s) ? SDL_LockSurface(s) : 0)
 #define SDL_UNLOCKIFMUST(s) { if(SDL_MUSTLOCK(s)) SDL_UnlockSurface(s); }
@@ -86,9 +86,9 @@ int invert_surface_vertical(SDL_Surface *surface)
 }
 
 void Camera::screenshot() {
-    SDL_Surface * image = SDL_CreateRGBSurface(SDL_SWSURFACE, this->width, this->height, 24, 0x000000FF, 0x0000FF00, 0x00FF0000, 0);
+    SDL_Surface * image = SDL_CreateRGBSurface(SDL_SWSURFACE, this->windowWidth, this->windowHeight, 24, 0x000000FF, 0x0000FF00, 0x00FF0000, 0);
 
-    glReadPixels(0, 0, this->width, this->height, GL_RGB, GL_UNSIGNED_BYTE, image->pixels);
+    glReadPixels(0, 0, this->windowWidth, this->windowHeight, GL_RGB, GL_UNSIGNED_BYTE, image->pixels);
 
     invert_surface_vertical(image);
 
