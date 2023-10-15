@@ -3,7 +3,10 @@
 ## Revamp Roadmap
 - clean up the codebase
 - rewrite readme and documentation
+<<<<<<< HEAD
 - build a better demo game (port over code from original demo)
+=======
+>>>>>>> parent of 7f078c3 (revamp)
 
 ## Anticipated Features
 
